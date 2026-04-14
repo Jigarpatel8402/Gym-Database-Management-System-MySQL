@@ -1,0 +1,14 @@
+
+{% extends "layout.html" %}
+{% block content %}
+<h3>Add Member</h3>
+<form method="POST">
+  <div class="mb-2"><input class="form-control" name="name" placeholder="Name" required></div>
+  <div class="mb-2"><input class="form-control" name="age" type="number" placeholder="Age" required></div>
+  <div class="mb-2"><input class="form-control" name="gender" placeholder="Gender"></div>
+  <div class="mb-2"><input class="form-control" name="phone" placeholder="Phone"></div>
+  <div class="mb-2"><input class="form-control" name="email" placeholder="Email" type="email"></div>
+  <div class="mb-2"><input class="form-control" name="membership_type" placeholder="Membership Type"></div>
+  <button class="btn btn-primary">Add</button>
+</form>
+{% endblock %}

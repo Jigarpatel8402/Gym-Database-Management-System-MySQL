@@ -1,0 +1,10 @@
+
+{% extends "layout.html" %}
+{% block content %}
+<h3>Progress Records <a class="btn btn-sm btn-success" href="/progress/add">Add</a></h3>
+<table class="table"><tr><th>ID</th><th>Member</th><th>Date</th><th>Weight</th><th>BMI</th><th>Body Fat</th></tr>
+{% for r in records %}
+<tr><td>{{ r.progress_id }}</td><td>{{ r.member_name }}</td><td>{{ r.date }}</td><td>{{ r.weight_kg }}</td><td>{{ r.bmi }}</td><td>{{ r.body_fat_pct }}</td></tr>
+{% endfor %}
+</table>
+{% endblock %}

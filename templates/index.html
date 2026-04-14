@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block content %}
+<section class="page-hero">
+  <div>
+    <span class="hero-badge">Performance Command Center</span>
+    <h1>Gym dashboard</h1>
+    <p class="lead-copy">
+      Track members, trainers, workouts, payments, and attendance with a cleaner dark interface
+      designed to make your DBMS lab project feel like a real product.
+    </p>
+    <div class="quick-links">
+      <a class="btn btn-primary" href="/members/add">Add Member</a>
+      <a class="btn btn-success" href="/attendance/add">Mark Attendance</a>
+      <a class="btn btn-secondary" href="/features/">View Reports</a>
+      <a class="btn btn-warning" href="/superai/">Open SQL Bot</a>
+    </div>
+  </div>
+</section>
+
+<section class="stats-grid">
+  <article class="stat-card total-members">
+    <p>Total Members</p>
+    <div class="stat-value">{{ total_members }}</div>
+    <div class="stat-note">Registered gym members currently stored in the database.</div>
+  </article>
+
+  <article class="stat-card total-trainers">
+    <p>Total Trainers</p>
+    <div class="stat-value">{{ total_trainers }}</div>
+    <div class="stat-note">Trainer profiles available for plans, classes, and feedback.</div>
+  </article>
+
+  <article class="stat-card todays-attendance">
+    <p>Today's Attendance</p>
+    <div class="stat-value">{{ todays_att }}</div>
+    <div class="stat-note">Daily check-ins captured from the Attendance table.</div>
+  </article>
+</section>
+{% endblock %}

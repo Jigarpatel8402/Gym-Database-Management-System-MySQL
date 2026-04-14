@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gym Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/theme/dracula.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script>
+    (function () {
+      const storedTheme = localStorage.getItem('gym-tracker-theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', storedTheme);
+    })();
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/sql/sql.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/addon/display/autoresize.js"></script>
+</head>
+<body>
+  {% set path = request.path %}
+
+  <div class="app-background" aria-hidden="true">
+    <span class="bg-orb orb-one"></span>
+    <span class="bg-orb orb-two"></span>
+    <span class="bg-grid"></span>
+  </div>
+
+  <header class="app-header">
+    <div class="container header-shell">
+      <a class="brand-block" href="/">
+        <span class="brand-kicker">DBMS Lab Project</span>
+        <span class="brand-name">Gym Tracker</span>
+      </a>
+
+      <nav class="app-nav" aria-label="Primary">
+        <a class="nav-pill {% if path == '/' %}active{% endif %}" href="/">Dashboard</a>
+        <a class="nav-pill {% if path.startswith('/members') %}active{% endif %}" href="/members/">Members</a>
+        <a class="nav-pill {% if path.startswith('/trainers') %}active{% endif %}" href="/trainers/">Trainers</a>
+        <a class="nav-pill {% if path.startswith('/workouts') %}active{% endif %}" href="/workouts/">Workouts</a>
+        <a class="nav-pill {% if path.startswith('/attendance') %}active{% endif %}" href="/attendance/">Attendance</a>
+        <a class="nav-pill {% if path.startswith('/progress') %}active{% endif %}" href="/progress/">Progress</a>
+        <a class="nav-pill {% if path.startswith('/payments') %}active{% endif %}" href="/payments/">Payments</a>
+        <a class="nav-pill {% if path.startswith('/others') %}active{% endif %}" href="/others/equipment">Operations</a>
+        <a class="nav-pill {% if path.startswith('/features') %}active{% endif %}" href="/features/">Reports</a>
+        <a class="nav-pill sql-pill {% if path.startswith('/superai') %}active{% endif %}" href="/superai/">SQL Bot</a>
+      </nav>
+
+      <div class="header-actions">
+        <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle color theme">
+          Dark Mode
+        </button>
+        {% if session.get('user') %}
+          <a class="btn btn-outline-light auth-btn" href="/logout">Logout</a>
+        {% else %}
+          <a class="btn btn-primary auth-btn" href="/login">Login</a>
+        {% endif %}
+      </div>
+    </div>
+  </header>
+
+  <main class="container app-shell">
+    {% block content %}{% endblock %}
+  </main>
+
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const root = document.documentElement;
+
+    function syncThemeLabel() {
+      const activeTheme = root.getAttribute('data-theme') || 'dark';
+      themeToggle.textContent = activeTheme === 'dark' ? 'Light Mode' : 'Dark Mode';
+    }
+
+    syncThemeLabel();
+
+    themeToggle.addEventListener('click', function () {
+      const nextTheme = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', nextTheme);
+      localStorage.setItem('gym-tracker-theme', nextTheme);
+      syncThemeLabel();
+    });
+  </script>
+</body>
+</html>

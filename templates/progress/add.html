@@ -1,0 +1,14 @@
+
+{% extends "layout.html" %}
+{% block content %}
+<h3>Add Progress</h3>
+<form method="POST">
+  <select name="member_id" class="form-control mb-2">{% for m in members %}<option value="{{ m.member_id }}">{{ m.name }}</option>{% endfor %}</select>
+  <input class="form-control mb-2" name="date" placeholder="Date (mm/dd/yyyy)" type="text" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+  <input class="form-control mb-2" name="weight_kg" placeholder="Weight (kg)">
+  <input class="form-control mb-2" name="bmi" placeholder="BMI">
+  <input class="form-control mb-2" name="body_fat_pct" placeholder="Body fat %">
+  <input class="form-control mb-2" name="goal_status" placeholder="Goal status">
+  <button class="btn btn-primary">Add</button>
+</form>
+{% endblock %}

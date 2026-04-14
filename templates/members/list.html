@@ -1,0 +1,25 @@
+
+{% extends "layout.html" %}
+{% block content %}
+<h3>Members <a class="btn btn-sm btn-success" href="/members/add">Add</a></h3>
+<form method="POST" action="/members/search" class="mb-3 d-flex">
+  <input class="form-control me-2" name="q" placeholder="Search name or phone">
+  <button class="btn btn-secondary">Search</button>
+</form>
+<table class="table">
+<tr><th>ID</th><th>Name</th><th>Age</th><th>Phone</th><th>Email</th><th>Actions</th></tr>
+{% for m in members %}
+<tr>
+  <td>{{ m.member_id }}</td>
+  <td>{{ m.name }}</td>
+  <td>{{ m.age }}</td>
+  <td>{{ m.phone }}</td>
+  <td>{{ m.email }}</td>
+  <td>
+    <a class="btn btn-sm btn-primary" href="/members/edit/{{ m.member_id }}">Edit</a>
+    <a class="btn btn-sm btn-danger" href="/members/delete/{{ m.member_id }}">Delete</a>
+  </td>
+</tr>
+{% endfor %}
+</table>
+{% endblock %}

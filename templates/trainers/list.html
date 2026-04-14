@@ -1,0 +1,18 @@
+
+{% extends "layout.html" %}
+{% block content %}
+<h3>Trainers <a class="btn btn-sm btn-success" href="/trainers/add">Add</a></h3>
+<table class="table">
+<tr><th>ID</th><th>Name</th><th>Spec</th><th>Phone</th><th>Email</th><th>Actions</th></tr>
+{% for t in trainers %}
+<tr>
+  <td>{{ t.trainer_id }}</td>
+  <td>{{ t.name }}</td>
+  <td>{{ t.specialization }}</td>
+  <td>{{ t.phone }}</td>
+  <td>{{ t.email }}</td>
+  <td><a class="btn btn-sm btn-primary" href="/trainers/edit/{{ t.trainer_id }}">Edit</a> <a class="btn btn-sm btn-danger" href="/trainers/delete/{{ t.trainer_id }}">Delete</a></td>
+</tr>
+{% endfor %}
+</table>
+{% endblock %}

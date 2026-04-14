@@ -1,0 +1,13 @@
+
+{% extends "layout.html" %}
+{% block content %}
+<h3>Add Class</h3>
+<form method="POST">
+  <select name="trainer_id" class="form-control mb-2">{% for t in trainers %}<option value="{{ t.trainer_id }}">{{ t.name }}</option>{% endfor %}</select>
+  <input class="form-control mb-2" name="name" placeholder="Class name">
+  <input class="form-control mb-2" name="schedule" placeholder="Schedule">
+  <input class="form-control mb-2" name="duration" placeholder="Duration">
+  <input class="form-control mb-2" name="max_capacity" placeholder="Capacity">
+  <button class="btn btn-primary">Add</button>
+</form>
+{% endblock %}

@@ -1,0 +1,12 @@
+
+{% extends "layout.html" %}
+{% block content %}
+<h3>Send Notification</h3>
+<form method="POST">
+  <select name="member_id" class="form-control mb-2">{% for m in members %}<option value="{{ m.member_id }}">{{ m.name }}</option>{% endfor %}</select>
+  <textarea class="form-control mb-2" name="message" placeholder="Message"></textarea>
+  <input class="form-control mb-2" name="date" placeholder="Date (mm/dd/yyyy)" type="text" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+  <input class="form-control mb-2" name="status" placeholder="Status">
+  <button class="btn btn-primary">Send</button>
+</form>
+{% endblock %}

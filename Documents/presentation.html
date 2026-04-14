@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Gym DBMS Project – Slide Deck</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+  <style>
+    html,body {height:100%; overflow:hidden; font-family:'Inter',sans-serif;}
+    .slide {width:100vw; height:100vh; overflow:hidden; padding:48px;}
+    .deck {position:relative; width:100vw; height:100vh;}
+    .slide[hidden]{display:none !important;}
+
+    /* helper borders/gradients reused from your slides */
+    .bg-deck {background:linear-gradient(135deg,#1a1a1a 0%,#2d2d2d 100%);}
+    .title-grad {background:linear-gradient(135deg,#00d4ff 0%,#ffffff 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;}
+    .title-grad-alt {background:linear-gradient(135deg,#00d4ff,#ffffff); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;}
+    .soft-card {background:rgba(255,255,255,0.05); border:1px solid rgba(0,212,255,0.2);}
+    .code {font-family: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;}
+    .nav-btn {backdrop-filter: blur(6px);}
+    .dot {width:10px;height:10px;border-radius:9999px;background:#555}
+    .dot.active{background:#00d4ff}
+    .maxw {max-width: 1200px}
+    /* make images and video contain properly */
+    .cover-abs {position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
+  </style>
+</head>
+<body class="bg-black">
+
+  <div id="deck" class="deck">
+    <!-- NAV -->
+    <button id="prev" aria-label="Previous" class="nav-btn absolute left-4 top-1/2 -translate-y-1/2 z-50 bg-white/10 hover:bg-white/20 text-white rounded-full px-4 py-3">
+      <i class="fa fa-chevron-left"></i>
+    </button>
+    <button id="next" aria-label="Next" class="nav-btn absolute right-4 top-1/2 -translate-y-1/2 z-50 bg-white/10 hover:bg-white/20 text-white rounded-full px-4 py-3">
+      <i class="fa fa-chevron-right"></i>
+    </button>
+    <div id="dots" class="absolute bottom-4 left-1/2 -translate-x-1/2 z-50 flex gap-2"></div>
+
+    <!-- 1. COVER -->
+    <section class="slide bg-deck relative flex items-center justify-center" data-title="Cover">
+      <video autoplay muted loop class="cover-abs opacity-20 scale-[1.1]">
+        <source src="https://voxdeck-sg-s3.voxdeck.ai/render/prod/aigc/img/A8yZ_sakQU26WVSifpeU1g_720p.webm" type="video/mp4">
+      </video>
+      <div class="absolute inset-0 bg-gradient-to-br from-black/60 via-transparent to-black/40"></div>
+
+      <div class="relative z-10 text-center max-w-3xl">
+        <i class="fas fa-dumbbell text-6xl text-cyan-400 mb-6 block"></i>
+        <h1 class="title text-5xl font-bold mb-4 title-grad">Gym Membership & Workout Progress Tracker</h1>
+        <div class="w-24 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 mx-auto mb-8"></div>
+
+        <div class="course-info bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-white/10">
+          <h2 class="subtitle text-2xl font-semibold mb-4 text-cyan-400">DBMS Laboratory</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-lg text-gray-300">
+            <div class="info-item">
+              Team Members: Dhruv Patel - 24BCB113<br>Yug Shrimali - 24BCB111<br>Keval Oza - 24BCB115
+            </div>
+            <div class="info-item">
+              Instructor: <span class="text-white font-medium">Prof. Nandani Modi</span>
+            </div>
+            <div class="info-item md:col-span-2">
+              Institute: <span class="text-white font-medium">PDEU</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="academic-badge flex items-center justify-center mt-8">
+          <div class="bg-gradient-to-r from-cyan-500/20 to-blue-500/20 px-6 py-3 rounded-full border border-cyan-400/30 text-cyan-300">
+            Academic Project Demonstration
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. INTRODUCTION -->
+    <section class="slide bg-deck flex items-center justify-center" data-title="Introduction">
+      <div class="text-center maxw">
+        <h1 class="title text-4xl font-bold mb-6 title-grad">Introduction</h1>
+        <p class="subtitle text-lg mb-10 text-gray-300 max-w-3xl mx-auto">This project is designed to manage gym operations such as:</p>
+
+        <div class="features-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div class="feature-item soft-card p-6 rounded-lg text-center">
+            <i class="fas fa-user-plus text-3xl mb-4 text-cyan-400"></i>
+            <h3 class="text-lg font-semibold text-white">Member Registration</h3>
+            <p class="text-sm text-gray-400">Streamlined onboarding & profile management</p>
+          </div>
+          <div class="feature-item soft-card p-6 rounded-lg text-center">
+            <i class="fas fa-dumbbell text-3xl mb-4 text-cyan-400"></i>
+            <h3 class="text-lg font-semibold text-white">Trainer Assignment</h3>
+            <p class="text-sm text-gray-400">Efficient matching of trainers with members</p>
+          </div>
+          <div class="feature-item soft-card p-6 rounded-lg text-center">
+            <i class="fas fa-calendar-alt text-3xl mb-4 text-cyan-400"></i>
+            <h3 class="text-lg font-semibold text-white">Workout Scheduling</h3>
+            <p class="text-sm text-gray-400">Comprehensive planning and scheduling</p>
+          </div>
+          <div class="feature-item soft-card p-6 rounded-lg text-center">
+            <i class="fas fa-chart-line text-3xl mb-4 text-cyan-400"></i>
+            <h3 class="text-lg font-semibold text-white">Progress Monitoring</h3>
+            <p class="text-sm text-gray-400">Real-time tracking of goals</p>
+          </div>
+          <div class="feature-item soft-card p-6 rounded-lg text-center">
+            <i class="fas fa-credit-card text-3xl mb-4 text-cyan-400"></i>
+            <h3 class="text-lg font-semibold text-white">Attendance & Payments</h3>
+            <p class="text-sm text-gray-400">Automated attendance & billing</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. PROBLEM STATEMENT -->
+    <section class="slide bg-deck flex items-center justify-center" data-title="Problem Statement">
+      <div class="maxw text-center">
+        <h1 class="title text-5xl font-bold mb-6 title-grad-alt">Problem Statement</h1>
+        <p class="subtitle text-xl mb-12 text-gray-300">Gyms using paper records or spreadsheets face critical operational challenges</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="problem-card bg-gray-800/70 p-8 rounded-xl border border-gray-700">
+            <div class="flex items-center mb-3"><i class="fas fa-exclamation-triangle text-3xl text-red-400 mr-4"></i><h3 class="text-2xl font-semibold text-white">Data Inconsistency</h3></div>
+            <p class="text-gray-300">Conflicting information across versions</p>
+          </div>
+          <div class="problem-card bg-gray-800/70 p-8 rounded-xl border border-gray-700">
+            <div class="flex items-center mb-3"><i class="fas fa-chart-line text-3xl text-orange-400 mr-4"></i><h3 class="text-2xl font-semibold text-white">Tracking Difficulties</h3></div>
+            <p class="text-gray-300">Manual tracking blocks progress monitoring</p>
+          </div>
+          <div class="problem-card bg-gray-800/70 p-8 rounded-xl border border-gray-700">
+            <div class="flex items-center mb-3"><i class="fas fa-database text-3xl text-yellow-400 mr-4"></i><h3 class="text-2xl font-semibold text-white">No Centralized System</h3></div>
+            <p class="text-gray-300">Scattered records hurt accessibility</p>
+          </div>
+          <div class="problem-card bg-gray-800/70 p-8 rounded-xl border border-gray-700">
+            <div class="flex items-center mb-3"><i class="fas fa-user-times text-3xl text-purple-400 mr-4"></i><h3 class="text-2xl font-semibold text-white">Human Error</h3></div>
+            <p class="text-gray-300">High risk of inaccurate entries</p>
+          </div>
+        </div>
+
+        <div class="mt-12 p-6 bg-blue-900/30 rounded-xl border border-blue-500 text-blue-200">
+          <i class="fas fa-lightbulb text-yellow-400 mr-2"></i>Therefore, a database-driven management system is necessary for smooth operations
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. OBJECTIVES -->
+    <section class="slide bg-deck flex items-center justify-center" data-title="Objectives">
+      <div class="maxw text-center">
+        <h1 class="title text-5xl font-bold mb-12 title-grad">Project Objectives</h1>
+        <div class="grid grid-cols-1 gap-6 max-w-4xl mx-auto">
+          <div class="objective-item soft-card p-6 rounded-xl text-left flex gap-6">
+            <div class="w-16 h-16 rounded-full flex items-center justify-center bg-gradient-to-br from-cyan-400 to-cyan-700"><i class="fas fa-database text-white"></i></div>
+            <div><h3 class="text-xl font-semibold text-white mb-1">Create a structured database</h3><p class="text-gray-300">Comprehensive schema for gym operations</p></div>
+          </div>
+          <div class="objective-item soft-card p-6 rounded-xl text-left flex gap-6">
+            <div class="w-16 h-16 rounded-full flex items-center justify-center bg-gradient-to-br from-cyan-400 to-cyan-700"><i class="fas fa-keyboard text-white"></i></div>
+            <div><h3 class="text-xl font-semibold text-white mb-1">Easy data entry and retrieval</h3><p class="text-gray-300">User-friendly interfaces</p></div>
+          </div>
+          <div class="objective-item soft-card p-6 rounded-xl text-left flex gap-6">
+            <div class="w-16 h-16 rounded-full flex items-center justify-center bg-gradient-to-br from-cyan-400 to-cyan-700"><i class="fas fa-chart-line text-white"></i></div>
+            <div><h3 class="text-xl font-semibold text-white mb-1">Track performance</h3><p class="text-gray-300">Monitor progress & achievements</p></div>
+          </div>
+          <div class="objective-item soft-card p-6 rounded-xl text-left flex gap-6">
+            <div class="w-16 h-16 rounded-full flex items-center justify-center bg-gradient-to-br from-cyan-400 to-cyan-700"><i class="fas fa-credit-card text-white"></i></div>
+            <div><h3 class="text-xl font-semibold text-white mb-1">Automate attendance & payments</h3><p class="text-gray-300">Streamlined admin processes</p></div>
+          </div>
+          <div class="objective-item soft-card p-6 rounded-xl text-left flex gap-6">
+            <div class="w-16 h-16 rounded-full flex items-center justify-center bg-gradient-to-br from-cyan-400 to-cyan-700"><i class="fas fa-lightbulb text-white"></i></div>
+            <div><h3 class="text-xl font-semibold text-white mb-1">Better decisions via insights</h3><p class="text-gray-300">Meaningful analytics & reports</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. REQUIREMENTS -->
+    <section class="slide bg-deck flex items-center justify-center" data-title="Requirements Analysis">
+      <div class="maxw text-center">
+        <h1 class="title text-5xl font-bold mb-10 title-grad-alt">Requirements Analysis</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mt-6">
+          <div class="functional-req bg-gray-800/70 rounded-2xl p-8 border border-gray-700">
+            <h2 class="text-2xl font-bold mb-6 text-white flex items-center justify-center"><i class="fas fa-cogs text-blue-400 mr-3"></i>Functional Requirements</h2>
+            <div class="space-y-4 text-left">
+              <div class="req-item flex items-start gap-3 p-4 rounded-lg bg-gray-700/40"><i class="fas fa-users text-blue-400 mt-1"></i><div><h3 class="text-white font-semibold mb-1">Member & Trainer Management</h3><p class="text-gray-300 text-sm">Registration, profiles, assignments</p></div></div>
+              <div class="req-item flex items-start gap-3 p-4 rounded-lg bg-gray-700/40"><i class="fas fa-dumbbell text-green-400 mt-1"></i><div><h3 class="text-white font-semibold mb-1">Workout & Progress Logging</h3><p class="text-gray-300 text-sm">Exercises & performance</p></div></div>
+              <div class="req-item flex items-start gap-3 p-4 rounded-lg bg-gray-700/40"><i class="fas fa-calendar-check text-purple-400 mt-1"></i><div><h3 class="text-white font-semibold mb-1">Attendance Tracking</h3><p class="text-gray-300 text-sm">Check-in/out & history</p></div></div>
+              <div class="req-item flex items-start gap-3 p-4 rounded-lg bg-gray-700/40"><i class="fas fa-credit-card text-yellow-400 mt-1"></i><div><h3 class="text-white font-semibold mb-1">Payments & Renewals</h3><p class="text-gray-300 text-sm">Billing & subscriptions</p></div></div>
+            </div>
+          </div>
+          <div class="non-functional-req bg-gray-800/70 rounded-2xl p-8 border border-gray-700">
+            <h2 class="text-2xl font-bold mb-6 text-white flex items-center justify-center"><i class="fas fa-shield-alt text-cyan-400 mr-3"></i>Non-Functional Requirements</h2>
+            <div class="space-y-4 text-left">
+              <div class="req-item flex items-start gap-3 p-4 rounded-lg bg-gray-700/40"><i class="fas fa-lock text-red-400 mt-1"></i><div><h3 class="text-white font-semibold mb-1">Secure Login</h3><p class="text-gray-300 text-sm">AuthN/AuthZ</p></div></div>
+              <div class="req-item flex items-start gap-3 p-4 rounded-lg bg-gray-700/40"><i class="fas fa-tachometer-alt text-orange-400 mt-1"></i><div><h3 class="text-white font-semibold mb-1">Fast Queries</h3><p class="text-gray-300 text-sm">Optimized performance</p></div></div>
+              <div class="req-item flex items-start gap-3 p-4 rounded-lg bg-gray-700/40"><i class="fas fa-expand-arrows-alt text-teal-400 mt-1"></i><div><h3 class="text-white font-semibold mb-1">Scalability</h3><p class="text-gray-300 text-sm">Growth-ready design</p></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+
+    <!-- 7. RELATIONAL SCHEMA -->
+    <section class="slide bg-deck flex items-center justify-center" data-title="Relational Schema">
+      <div class="maxw">
+        <h1 class="title text-4xl font-bold text-center mb-10" style="background:linear-gradient(135deg,#00d4ff 0%,#ffffff 50%,#00d4ff 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">Relational Schema</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="schema-card bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <h3 class="text-xl font-semibold mb-4 text-cyan-400">Core Tables</h3>
+            <div class="space-y-4">
+              <div class="schema-item">
+                <div class="text-sm font-medium mb-2 text-white">Member</div>
+                <code class="block text-xs p-3 bg-gray-900 rounded border-l-4 border-blue-400 text-gray-300 code">Member(member_id, name, age, phone, membership_id, trainer_id)</code>
+              </div>
+              <div class="schema-item">
+                <div class="text-sm font-medium mb-2 text-white">Trainer</div>
+                <code class="block text-xs p-3 bg-gray-900 rounded border-l-4 border-green-400 text-gray-300 code">Trainer(trainer_id, name, specialization, experience)</code>
+              </div>
+              <div class="schema-item">
+                <div class="text-sm font-medium mb-2 text-white">Membership</div>
+                <code class="block text-xs p-3 bg-gray-900 rounded border-l-4 border-purple-400 text-gray-300 code">Membership(membership_id, type, duration, fees)</code>
+              </div>
+            </div>
+          </div>
+          <div class="schema-card bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <h3 class="text-xl font-semibold mb-4 text-cyan-400">Activity Tables</h3>
+            <div class="space-y-4">
+              <div class="schema-item">
+                <div class="text-sm font-medium mb-2 text-white">Attendance</div>
+                <code class="block text-xs p-3 bg-gray-900 rounded border-l-4 border-yellow-400 text-gray-300 code">Attendance(attendance_id, member_id, date, status)</code>
+              </div>
+              <div class="schema-item">
+                <div class="text-sm font-medium mb-2 text-white">Progress</div>
+                <code class="block text-xs p-3 bg-gray-900 rounded border-l-4 border-red-400 text-gray-300 code">Progress(progress_id, member_id, weight, BMI, date)</code>
+              </div>
+              <div class="schema-item">
+                <div class="text-sm font-medium mb-2 text-white">Payment</div>
+                <code class="block text-xs p-3 bg-gray-900 rounded border-l-4 border-indigo-400 text-gray-300 code">Payment(payment_id, member_id, amount, date)</code>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="text-center text-gray-300 mt-6">Database structure designed for performance & integrity</p>
+      </div>
+    </section>
+
+    <!-- 8. KEY SQL QUERIES -->
+    <section class="slide bg-deck flex items-center justify-center" data-title="Key SQL Queries">
+      <div class="maxw">
+        <h1 class="title text-5xl font-bold text-center mb-10 title-grad">Key SQL Queries</h1>
+        <div class="grid grid-cols-1 gap-8">
+          <div class="query-block bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <div class="flex items-center mb-3"><i class="fas fa-users text-blue-400 mr-3"></i><h3 class="text-xl font-semibold text-white">Active members</h3></div>
+            <div class="bg-gray-900 rounded p-4 text-sm code text-gray-200"><span class="text-green-400">SELECT</span> name, phone <span class="text-green-400">FROM</span> Member <span class="text-green-400">WHERE</span> status='Active';</div>
+          </div>
+          <div class="query-block bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <div class="flex items-center mb-3"><i class="fas fa-link text-blue-400 mr-3"></i><h3 class="text-xl font-semibold text-white">Member with trainer</h3></div>
+            <div class="bg-gray-900 rounded p-4 text-sm code text-gray-200">
+              <span class="text-green-400">SELECT</span> Member.name, Trainer.name
+              <span class="text-green-400">FROM</span> Member <span class="text-green-400">JOIN</span> Trainer
+              <span class="text-green-400">ON</span> Member.trainer_id = Trainer.trainer_id;
+            </div>
+          </div>
+          <div class="query-block bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <div class="flex items-center mb-3"><i class="fas fa-chart-line text-blue-400 mr-3"></i><h3 class="text-xl font-semibold text-white">Progress trend</h3></div>
+            <div class="bg-gray-900 rounded p-4 text-sm code text-gray-200"><span class="text-green-400">SELECT</span> member_id, weight, date <span class="text-green-400">FROM</span> Progress <span class="text-green-400">ORDER BY</span> date;</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. SYSTEM DEMO -->
+    <section class="slide bg-[#1a1a1a] flex items-center justify-center" data-title="System Demonstration">
+      <div class="maxw">
+        <h1 class="text-4xl font-bold text-center mb-10 text-white">System Demonstration</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+          <div class="demo card bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <div class="flex items-center mb-4"><i class="fas fa-tachometer-alt text-blue-400 text-2xl mr-3"></i><h3 class="text-xl font-semibold text-white">Dashboard</h3></div>
+            <div class="bg-gray-900 rounded h-32 mb-3 flex items-center justify-center">
+              <img src="https://voxdeck-sg-s3.voxdeck.ai/render/prod/aigc/img/HvVT6MNDQ8qn6_9w6P2Paw_1512x648.jpeg" class="w-[280px] h-[110px] object-cover rounded">
+            </div>
+            <p class="text-gray-300 text-sm">Real-time overview of stats</p>
+          </div>
+          <div class="demo card bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <div class="flex items-center mb-4"><i class="fas fa-user-plus text-blue-400 text-2xl mr-3"></i><h3 class="text-xl font-semibold text-white">Add / Edit Member</h3></div>
+            <div class="bg-gray-900 rounded h-32 mb-3 flex items-center justify-center">
+              <img src="https://voxdeck-sg-s3.voxdeck.ai/render/prod/aigc/img/5xYcAEpnThaPccO8f2KSJg_1512x648.jpeg" class="w-[280px] h-[110px] object-cover rounded">
+            </div>
+            <p class="text-gray-300 text-sm">Comprehensive registration</p>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="demo card bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <div class="flex items-center mb-3"><i class="fas fa-dumbbell text-blue-400 mr-3"></i><h3 class="text-lg font-semibold text-white">Trainer Assignment</h3></div>
+            <div class="bg-gray-900 rounded h-24 mb-3 flex items-center justify-center">
+              <img src="https://voxdeck-sg-s3.voxdeck.ai/render/prod_test/aigc/img/YVMMWQqYTfykk9KpYg6fGQ_3024x1296.jpeg" class="w-[220px] h-[70px] object-cover rounded">
+            </div>
+            <p class="text-gray-300 text-xs">Efficient pairing & schedules</p>
+          </div>
+          <div class="demo card bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <div class="flex items-center mb-3"><i class="fas fa-chart-line text-blue-400 mr-3"></i><h3 class="text-lg font-semibold text-white">Progress Tracking</h3></div>
+            <div class="bg-gray-900 rounded h-24 mb-3 flex items-center justify-center">
+              <img src="https://voxdeck-sg-s3.voxdeck.ai/render/prod/aigc/img/cGthccwpRWaFQGnF6IQAWw_1512x648.jpeg" class="w-[220px] h-[70px] object-cover rounded">
+            </div>
+            <p class="text-gray-300 text-xs">Detailed analytics</p>
+          </div>
+          <div class="demo card bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <div class="flex items-center mb-3"><i class="fas fa-database text-blue-400 mr-3"></i><h3 class="text-lg font-semibold text-white">SQL Console</h3></div>
+            <div class="bg-gray-900 rounded h-24 mb-3 flex items-center justify-center"><span class="text-gray-500 text-xs">SuperAI SQL Interface</span></div>
+            <p class="text-gray-300 text-xs">Advanced admin queries</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. TESTING -->
+    <section class="slide bg-[#1a1a1a] flex items-center justify-center" data-title="Testing & Evaluation">
+      <div class="maxw">
+        <h1 class="text-4xl font-bold text-white mb-10 text-center" id="testing-title">Testing and Evaluation</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="testing-grid">
+          <div class="tcard bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <div class="flex items-center mb-3"><i class="fas fa-check-circle text-green-400 text-2xl mr-3"></i><h3 class="text-xl font-semibold text-white">CRUD Operations</h3></div>
+            <p class="text-gray-300">All CRUD operations verified across entities</p>
+          </div>
+          <div class="tcard bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <div class="flex items-center mb-3"><i class="fas fa-shield-alt text-blue-400 text-2xl mr-3"></i><h3 class="text-xl font-semibold text-white">Database Constraints</h3></div>
+            <p class="text-gray-300">Integrity & consistency enforced</p>
+          </div>
+          <div class="tcard bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <div class="flex items-center mb-3"><i class="fas fa-database text-purple-400 text-2xl mr-3"></i><h3 class="text-xl font-semibold text-white">Sample Dataset</h3></div>
+            <p class="text-gray-300">~1500 entries for thorough testing</p>
+          </div>
+          <div class="tcard bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <div class="flex items-center mb-3"><i class="fas fa-users text-orange-400 text-2xl mr-3"></i><h3 class="text-xl font-semibold text-white">Interface Usability</h3></div>
+            <p class="text-gray-300">Positive feedback on navigation & UX</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. CONCLUSION -->
+    <section class="slide bg-[#1a1a1a] flex items-center justify-center" data-title="Conclusion & Future">
+      <div class="maxw">
+        <h1 class="text-4xl font-bold text-white mb-10 text-center">Conclusion & Future Enhancements</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+          <div class="ccard bg-gray-800 rounded-lg p-8 border border-gray-700">
+            <h2 class="text-2xl font-semibold text-white mb-5 flex items-center"><i class="fas fa-trophy text-yellow-400 mr-3"></i>Project Achievements</h2>
+            <div class="space-y-3">
+              <div class="flex items-start"><i class="fas fa-check-circle text-green-400 mt-1 mr-3"></i><p class="text-gray-300">Centralized gym data management</p></div>
+              <div class="flex items-start"><i class="fas fa-check-circle text-green-400 mt-1 mr-3"></i><p class="text-gray-300">Improved accuracy & efficiency</p></div>
+              <div class="flex items-start"><i class="fas fa-check-circle text-green-400 mt-1 mr-3"></i><p class="text-gray-300">Clear tracking of workouts & health</p></div>
+            </div>
+          </div>
+          <div class="ccard bg-gray-800 rounded-lg p-8 border border-gray-700">
+            <h2 class="text-2xl font-semibold text-white mb-5 flex items-center"><i class="fas fa-rocket text-blue-400 mr-3"></i>Future Improvements</h2>
+            <div class="space-y-3">
+              <div class="flex items-start"><i class="fas fa-mobile-alt text-blue-400 mt-1 mr-3"></i><p class="text-gray-300">Mobile App Integration</p></div>
+              <div class="flex items-start"><i class="fas fa-qrcode text-blue-400 mt-1 mr-3"></i><p class="text-gray-300">QR Code / RFID Attendance</p></div>
+              <div class="flex items-start"><i class="fas fa-brain text-blue-400 mt-1 mr-3"></i><p class="text-gray-300">AI-based Workout Recommendations</p></div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-10 text-center">
+          <div class="inline-flex items-center bg-gradient-to-r from-blue-600 to-purple-600 rounded-full px-6 py-3 text-white">
+            <i class="fas fa-lightbulb text-yellow-300 mr-2"></i>Transforming Gym Management Through Technology
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12. THANK YOU -->
+    <section class="slide bg-[#1a1a1a] flex items-center justify-center relative" data-title="Thank You">
+      <div class="absolute inset-0 opacity-10 pointer-events-none">
+        <div class="absolute top-20 left-20 w-32 h-32 border border-blue-500 rounded-full"></div>
+        <div class="absolute bottom-20 right-20 w-24 h-24 border border-blue-400 rounded-lg rotate-45"></div>
+        <div class="absolute top-1/2 left-10 w-16 h-16 bg-gradient-to-r from-blue-600 to-blue-400 rounded-full opacity-20"></div>
+      </div>
+      <div class="text-center relative z-10">
+        <h1 class="text-6xl font-bold mb-8 title-grad" style="background:linear-gradient(135deg,#007acc,#00a8ff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">Thank You</h1>
+        <div class="w-24 h-1 bg-gradient-to-r from-blue-600 to-blue-400 mx-auto mb-6 rounded-full"></div>
+        <p class="text-2xl text-gray-100">Thank you for your attention</p>
+        <div class="flex justify-center gap-8 mt-12">
+          <div class="flex flex-col items-center gap-2"><i class="fas fa-database text-blue-400 text-3xl"></i><span class="text-sm text-gray-400">DBMS</span></div>
+          <div class="flex flex-col items-center gap-2"><i class="fas fa-dumbbell text-blue-400 text-3xl"></i><span class="text-sm text-gray-400">Gym Tracker</span></div>
+          <div class="flex flex-col items-center gap-2"><i class="fas fa-chart-line text-blue-400 text-3xl"></i><span class="text-sm text-gray-400">Progress</span></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // --- Deck controller ---
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    let idx = 0;
+
+    // dots
+    const dotsWrap = document.getElementById('dots');
+    slides.forEach((_, i)=>{
+      const b=document.createElement('button');
+      b.className='dot';
+      b.addEventListener('click',()=>go(i));
+      dotsWrap.appendChild(b);
+    });
+
+    function show(i){
+      slides.forEach((s,j)=> s.hidden = j!==i);
+      Array.from(dotsWrap.children).forEach((d,j)=> d.classList.toggle('active', j===i));
+      window.location.hash = `#${i+1}`;
+      animateSlide(slides[i]); // trigger animations for current slide
+    }
+    function go(i){
+      idx = (i+slides.length)%slides.length;
+      show(idx);
+    }
+    document.getElementById('prev').onclick = ()=>go(idx-1);
+    document.getElementById('next').onclick = ()=>go(idx+1);
+    document.addEventListener('keydown', e=>{
+      if(e.key==='ArrowRight' || e.key==='PageDown') go(idx+1);
+      if(e.key==='ArrowLeft' || e.key==='PageUp') go(idx-1);
+    });
+
+    // initial
+    const fromHash = Number((location.hash||'').replace('#',''))-1;
+    idx = isNaN(fromHash)||fromHash<0?0:Math.min(fromHash, slides.length-1);
+    show(idx);
+
+    // --- ER upload handlers (slide #6) ---
+    const erBtn = document.getElementById('erBtn');
+    const erFile = document.getElementById('erFile');
+    const erImg = document.getElementById('erImg');
+    const erPlaceholder = document.getElementById('erPlaceholder');
+    const erShowDefault = document.getElementById('erShowDefault');
+
+    if(erBtn){
+      erBtn.addEventListener('click',()=>erFile.click());
+      erFile.addEventListener('change',()=>{
+        const f = erFile.files?.[0]; if(!f) return;
+        const url = URL.createObjectURL(f);
+        erImg.src = url; erImg.classList.remove('hidden'); erPlaceholder?.classList.add('hidden');
+      });
+      erShowDefault.addEventListener('click',()=>{
+        erImg.src = 'gym_ER.png'; erImg.classList.remove('hidden'); erPlaceholder?.classList.add('hidden');
+      });
+    }
+
+    // --- Animations per slide (scoped) ---
+    gsap.registerPlugin(SplitText);
+
+    function animateTitle(node){
+      if(!node) return;
+      const st = SplitText.create(node, {type:"chars, words, lines", tag:'span'});
+      gsap.set(st.chars, {opacity:0, clipPath:"inset(100% 0 0 0)"});
+      gsap.to(st.chars, {opacity:1, clipPath:"inset(0% 0 0 0)", duration:0.8, stagger:-0.15, ease:"power2.out",
+        onComplete:()=>st.revert()});
+    }
+
+    function animateSlide(slide){
+      // reset typical elements
+      slide.querySelectorAll('.feature-item,.problem-card,.objective-item,.schema-card,.schema-item,.query-block,.demo,.tcard,.ccard')
+        .forEach(el=> gsap.set(el,{opacity:0, y:30, x:0, scale:1}));
+
+      // common title/subtitle
+      animateTitle(slide.querySelector('.title'));
+      gsap.fromTo(slide.querySelector('.subtitle'), {opacity:0,y:30},{opacity:1,y:0,duration:0.6,delay:0.3,ease:"power2.out"});
+
+      // patterns
+      gsap.to(slide.querySelectorAll('.feature-item'), {opacity:1,y:0, duration:0.6, stagger:0.1, delay:0.6, ease:"power2.out"});
+      gsap.to(slide.querySelectorAll('.problem-card'), {opacity:1,y:0, scale:1, duration:0.8, stagger:0.2, delay:0.5, ease:"power2.out"});
+      gsap.to(slide.querySelectorAll('.objective-item'), {opacity:1,y:0, duration:0.6, stagger:0.1, delay:0.5, ease:"power2.out"});
+      gsap.to(slide.querySelectorAll('.schema-card'), {opacity:1,y:0, duration:0.8, stagger:0.2, delay:0.5, ease:"power2.out"});
+      gsap.to(slide.querySelectorAll('.schema-item'), {opacity:1,x:0, duration:0.6, stagger:0.1, delay:1, ease:"power2.out"});
+      gsap.to(slide.querySelectorAll('.query-block'), {opacity:1,y:0, duration:0.6, stagger:0.2, delay:0.5, ease:"power2.out"});
+      gsap.to(slide.querySelectorAll('.demo,.tcard,.ccard'), {opacity:1,y:0, duration:0.6, stagger:0.1, delay:0.3, ease:"power2.out"});
+
+      // cover specific extras
+      if(slide.querySelector('.course-info')){
+        gsap.fromTo(slide.querySelector('.course-info'), {opacity:0,y:40},{opacity:1,y:0,duration:0.8,delay:0.5,ease:"power2.out"});
+        gsap.fromTo(slide.querySelectorAll('.info-item'), {opacity:0,x:-20},{opacity:1,x:0,duration:0.6,stagger:0.1,delay:0.8,ease:"power2.out"});
+        gsap.fromTo(slide.querySelector('.academic-badge'), {opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.6,delay:1.2,ease:"back.out(1.7)"});
+      }
+
+      // ER slide reveal
+      if(slide.querySelector('.diagram-container')){
+        gsap.fromTo(slide.querySelector('.diagram-container'), {opacity:0,y:30},{opacity:1,y:0,duration:0.8,delay:0.3,ease:"power2.out"});
+        gsap.fromTo(slide.querySelector('.narration-section'), {opacity:0,y:20},{opacity:1,y:0,duration:0.6,delay:0.6,ease:"power2.out"});
+      }
+    }
+  </script>
+</body>
+</html>

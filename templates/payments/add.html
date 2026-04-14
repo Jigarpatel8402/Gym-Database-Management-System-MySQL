@@ -1,0 +1,13 @@
+
+{% extends "layout.html" %}
+{% block content %}
+<h3>Add Payment</h3>
+<form method="POST">
+  <select name="member_id" class="form-control mb-2">{% for m in members %}<option value="{{ m.member_id }}">{{ m.name }}</option>{% endfor %}</select>
+  <input class="form-control mb-2" name="amount" placeholder="Amount">
+  <input class="form-control mb-2" name="payment_date" placeholder="Payment Date (mm/dd/yyyy)" type="text" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+  <input class="form-control mb-2" name="due_date" placeholder="Due Date (mm/dd/yyyy)" type="text" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+  <input class="form-control mb-2" name="status" placeholder="Status">
+  <button class="btn btn-primary">Add</button>
+</form>
+{% endblock %}

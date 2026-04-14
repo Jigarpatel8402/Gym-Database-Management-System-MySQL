@@ -1,0 +1,12 @@
+
+{% extends "layout.html" %}
+{% block content %}
+<h3>Add Trainer</h3>
+<form method="POST">
+  <input class="form-control mb-2" name="name" placeholder="Name">
+  <input class="form-control mb-2" name="specialization" placeholder="Specialization">
+  <input class="form-control mb-2" name="phone" placeholder="Phone">
+  <input class="form-control mb-2" name="email" placeholder="Email" type="email">
+  <button class="btn btn-primary">Add</button>
+</form>
+{% endblock %}

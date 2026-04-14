@@ -1,0 +1,12 @@
+
+{% extends "layout.html" %}
+{% block content %}
+<h3>Add Equipment</h3>
+<form method="POST">
+  <input class="form-control mb-2" name="name" placeholder="Name">
+  <input class="form-control mb-2" name="type" placeholder="Type">
+  <input class="form-control mb-2" name="maintenance_date" placeholder="Maintenance Date (mm/dd/yyyy)" type="text" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+  <input class="form-control mb-2" name="condition_status" placeholder="Condition">
+  <button class="btn btn-primary">Add</button>
+</form>
+{% endblock %}

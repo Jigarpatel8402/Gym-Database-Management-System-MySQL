@@ -1,0 +1,12 @@
+
+{% extends "layout.html" %}
+{% block content %}
+<h3>Add Attendance</h3>
+<form method="POST">
+  <select class="form-control mb-2" name="member_id">{% for m in members %}<option value="{{ m.member_id }}">{{ m.name }}</option>{% endfor %}</select>
+  <input class="form-control mb-2" name="date" placeholder="Date (mm/dd/yyyy)" type="text" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+  <input class="form-control mb-2" name="check_in" placeholder="Check In (hh:mm)" type="text" onfocus="this.type='time'" onblur="if(!this.value) this.type='text'">
+  <input class="form-control mb-2" name="check_out" placeholder="Check Out (hh:mm)" type="text" onfocus="this.type='time'" onblur="if(!this.value) this.type='text'">
+  <button class="btn btn-primary">Add</button>
+</form>
+{% endblock %}

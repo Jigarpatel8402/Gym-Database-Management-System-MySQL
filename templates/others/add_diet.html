@@ -1,0 +1,15 @@
+
+{% extends "layout.html" %}
+{% block content %}
+<h3>Add Diet Plan</h3>
+<form method="POST">
+  <select name="member_id" class="form-control mb-2">{% for m in members %}<option value="{{ m.member_id }}">{{ m.name }}</option>{% endfor %}</select>
+  <input class="form-control mb-2" name="meal_type" placeholder="Meal Type">
+  <input class="form-control mb-2" name="calories" placeholder="Calories">
+  <input class="form-control mb-2" name="protein" placeholder="Protein">
+  <input class="form-control mb-2" name="carbs" placeholder="Carbs">
+  <input class="form-control mb-2" name="fat" placeholder="Fat">
+  <input class="form-control mb-2" name="date" placeholder="Date (mm/dd/yyyy)" type="text" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+  <button class="btn btn-primary">Add</button>
+</form>
+{% endblock %}

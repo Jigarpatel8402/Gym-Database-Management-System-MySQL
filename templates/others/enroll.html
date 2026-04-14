@@ -1,0 +1,11 @@
+
+{% extends "layout.html" %}
+{% block content %}
+<h3>Enroll in Class</h3>
+<form method="POST">
+  <select name="class_id" class="form-control mb-2">{% for c in classes %}<option value="{{ c.class_id }}">{{ c.name }}</option>{% endfor %}</select>
+  <select name="member_id" class="form-control mb-2">{% for m in members %}<option value="{{ m.member_id }}">{{ m.name }}</option>{% endfor %}</select>
+  <input class="form-control mb-2" name="enroll_date" type="date">
+  <button class="btn btn-primary">Enroll</button>
+</form>
+{% endblock %}

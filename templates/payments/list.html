@@ -1,0 +1,10 @@
+
+{% extends "layout.html" %}
+{% block content %}
+<h3>Payments <a class="btn btn-sm btn-success" href="/payments/add">Add</a></h3>
+<table class="table"><tr><th>ID</th><th>Member</th><th>Amount</th><th>Payment Date</th><th>Due</th><th>Status</th></tr>
+{% for p in payments %}
+<tr><td>{{ p.payment_id }}</td><td>{{ p.member_name }}</td><td>{{ p.amount }}</td><td>{{ p.payment_date }}</td><td>{{ p.due_date }}</td><td>{{ p.status }}</td></tr>
+{% endfor %}
+</table>
+{% endblock %}

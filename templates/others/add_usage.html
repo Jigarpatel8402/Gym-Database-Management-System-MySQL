@@ -1,0 +1,13 @@
+
+{% extends "layout.html" %}
+{% block content %}
+<h3>Log Equipment Usage</h3>
+<form method="POST">
+  <select name="equipment_id" class="form-control mb-2">{% for e in equipments %}<option value="{{ e.equipment_id }}">{{ e.name }}</option>{% endfor %}</select>
+  <select name="member_id" class="form-control mb-2">{% for m in members %}<option value="{{ m.member_id }}">{{ m.name }}</option>{% endfor %}</select>
+  <input class="form-control mb-2" name="date" placeholder="Date (mm/dd/yyyy)" type="text" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+  <input class="form-control mb-2" name="duration" placeholder="Duration (min)">
+  <input class="form-control mb-2" name="calories_burned" placeholder="Calories">
+  <button class="btn btn-primary">Add</button>
+</form>
+{% endblock %}

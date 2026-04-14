@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+{% block content %}
+<section class="feature-intro">
+  <span class="hero-badge">SQL Highlights</span>
+  <h2>Project Reports</h2>
+  <p class="section-subtitle">
+    Run showcase queries to demonstrate attendance analytics, revenue insights, expiring memberships,
+    and workout assignments directly from your Flask interface.
+  </p>
+</section>
+
+<form method="POST" class="feature-query-form">
+  <button class="feature-action" name="query" value="top_members">
+    <span><strong>Top 5 Active Members</strong></span>
+    <small>Find the members with the highest attendance count.</small>
+  </button>
+  <button class="feature-action" name="query" value="revenue_by_type">
+    <span><strong>Revenue by Membership Type</strong></span>
+    <small>Compare how each membership category contributes to payments.</small>
+  </button>
+  <button class="feature-action" name="query" value="expiring_members">
+    <span><strong>Expiring Memberships</strong></span>
+    <small>See memberships ending within the next 30 days.</small>
+  </button>
+  <button class="feature-action" name="query" value="member_workout">
+    <span><strong>Members and Workouts</strong></span>
+    <small>Review member-wise exercise assignments from workout plans.</small>
+  </button>
+</form>
+
+{% if result %}
+  <section class="result-shell">
+    <h4>{{ title }}</h4>
+    <p class="section-subtitle">Result generated from your project database.</p>
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            {% for key in result[0].keys() %}
+            <th>{{ key }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in result %}
+          <tr>
+            {% for value in row.values() %}
+            <td>{{ value }}</td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+{% endif %}
+{% endblock %}

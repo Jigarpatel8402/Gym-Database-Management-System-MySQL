@@ -1,0 +1,13 @@
+
+{% extends "layout.html" %}
+{% block content %}
+<h3>Add Health Checkup</h3>
+<form method="POST">
+  <select name="member_id" class="form-control mb-2">{% for m in members %}<option value="{{ m.member_id }}">{{ m.name }}</option>{% endfor %}</select>
+  <input class="form-control mb-2" name="blood_pressure" placeholder="BP">
+  <input class="form-control mb-2" name="heart_rate" placeholder="Heart rate">
+  <input class="form-control mb-2" name="sugar_level" placeholder="Sugar level">
+  <input class="form-control mb-2" name="checkup_date" placeholder="Checkup Date (mm/dd/yyyy)" type="text" onfocus="this.type='date'" onblur="if(!this.value) this.type='text'">
+  <button class="btn btn-primary">Add</button>
+</form>
+{% endblock %}

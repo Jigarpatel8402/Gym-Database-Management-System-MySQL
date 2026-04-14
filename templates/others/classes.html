@@ -1,0 +1,10 @@
+
+{% extends "layout.html" %}
+{% block content %}
+<h3>Classes <a class="btn btn-sm btn-success" href="/others/classes/add">Add</a></h3>
+<table class="table"><tr><th>ID</th><th>Name</th><th>Trainer</th><th>Schedule</th><th>Capacity</th></tr>
+{% for c in classes %}
+<tr><td>{{ c.class_id }}</td><td>{{ c.name }}</td><td>{{ c.trainer_name }}</td><td>{{ c.schedule }}</td><td>{{ c.max_capacity }}</td></tr>
+{% endfor %}
+</table>
+{% endblock %}

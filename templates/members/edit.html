@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block content %}
+<h3>Edit Member</h3>
+<form method="POST">
+  <div class="mb-2"><input class="form-control" name="name" placeholder="Name" value="{{ member.name }}"></div>
+  <div class="mb-2"><input class="form-control" name="age" placeholder="Age" type="number" value="{{ member.age }}"></div>
+  <div class="mb-2"><input class="form-control" name="gender" placeholder="Gender" value="{{ member.gender }}"></div>
+  <div class="mb-2"><input class="form-control" name="phone" placeholder="Phone" value="{{ member.phone }}"></div>
+  <div class="mb-2"><input class="form-control" name="email" placeholder="Email" type="email" value="{{ member.email }}"></div>
+  <div class="mb-2"><input class="form-control" name="membership_type" placeholder="Membership Type" value="{{ member.membership_type }}"></div>
+  <button class="btn btn-primary">Update</button>
+</form>
+{% endblock %}

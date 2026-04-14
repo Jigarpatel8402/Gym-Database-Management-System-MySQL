@@ -1,0 +1,10 @@
+
+{% extends "layout.html" %}
+{% block content %}
+<h3>Equipment <a class="btn btn-sm btn-success" href="/others/equipment/add">Add</a></h3>
+<table class="table"><tr><th>ID</th><th>Name</th><th>Type</th><th>Maintenance</th><th>Condition</th></tr>
+{% for e in items %}
+<tr><td>{{ e.equipment_id }}</td><td>{{ e.name }}</td><td>{{ e.type }}</td><td>{{ e.maintenance_date }}</td><td>{{ e.condition_status }}</td></tr>
+{% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,11 @@
+
+{% extends "layout.html" %}
+{% block content %}
+<h3>Attendance <a class="btn btn-sm btn-success" href="/attendance/add">Add</a></h3>
+<table class="table">
+<tr><th>ID</th><th>Member</th><th>Date</th><th>Check-in</th><th>Check-out</th></tr>
+{% for r in records %}
+<tr><td>{{ r.attendance_id }}</td><td>{{ r.member_name }}</td><td>{{ r.date }}</td><td>{{ r.check_in }}</td><td>{{ r.check_out }}</td></tr>
+{% endfor %}
+</table>
+{% endblock %}

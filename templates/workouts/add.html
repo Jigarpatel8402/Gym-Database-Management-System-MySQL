@@ -1,0 +1,16 @@
+
+{% extends "layout.html" %}
+{% block content %}
+<h3>Add Workout Plan</h3>
+<form method="POST">
+  <select name="member_id" class="form-control mb-2">
+    {% for m in members %}<option value="{{ m.member_id }}">{{ m.name }} ({{ m.member_id }})</option>{% endfor %}
+  </select>
+  <input class="form-control mb-2" name="exercise" placeholder="Exercise">
+  <input class="form-control mb-2" name="sets" placeholder="Sets">
+  <input class="form-control mb-2" name="reps" placeholder="Reps">
+  <input class="form-control mb-2" name="duration" placeholder="Duration (min)">
+  <input class="form-control mb-2" name="calories_burned" placeholder="Calories">
+  <button class="btn btn-primary">Add</button>
+</form>
+{% endblock %}

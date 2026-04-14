@@ -1,0 +1,12 @@
+
+{% extends "layout.html" %}
+{% block content %}
+<h3>Edit Trainer</h3>
+<form method="POST">
+  <input class="form-control mb-2" name="name" placeholder="Name" value="{{ trainer.name }}">
+  <input class="form-control mb-2" name="specialization" placeholder="Specialization" value="{{ trainer.specialization }}">
+  <input class="form-control mb-2" name="phone" placeholder="Phone" value="{{ trainer.phone }}">
+  <input class="form-control mb-2" name="email" placeholder="Email" type="email" value="{{ trainer.email }}">
+  <button class="btn btn-primary">Update</button>
+</form>
+{% endblock %}

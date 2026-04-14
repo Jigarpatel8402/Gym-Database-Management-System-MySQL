@@ -1,0 +1,19 @@
+
+{% extends "layout.html" %}
+{% block content %}
+<h3>Workout Plans <a class="btn btn-sm btn-success" href="/workouts/add">Add</a></h3>
+<table class="table"><tr><th>ID</th><th>Member</th><th>Exercise</th><th>Sets</th><th>Reps</th><th>Dur</th><th>Cal</th><th>Action</th></tr>
+{% for p in plans %}
+<tr>
+  <td>{{ p.plan_id }}</td>
+  <td>{{ p.member_name }}</td>
+  <td>{{ p.exercise }}</td>
+  <td>{{ p.sets }}</td>
+  <td>{{ p.reps }}</td>
+  <td>{{ p.duration }}</td>
+  <td>{{ p.calories_burned }}</td>
+  <td><a class="btn btn-sm btn-danger" href="/workouts/delete/{{ p.plan_id }}">Delete</a></td>
+</tr>
+{% endfor %}
+</table>
+{% endblock %}

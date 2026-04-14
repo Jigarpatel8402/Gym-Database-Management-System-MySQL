@@ -1,0 +1,94 @@
+{% extends "layout.html" %}
+{% block content %}
+<!-- <section class="feature-intro">
+  <span class="hero-badge">Interactive SQL Workspace</span>
+  <h2>SQL Bot Console</h2>
+  <p class="section-subtitle">
+    Run safe SQL queries directly from the interface to explore your Gym database.
+  </p>
+</section> -->
+
+<section class="sql-console">
+  <div class="query-tips">
+    <span class="hero-badge">Interactive SQL Workspace</span>
+    <h4>Quick query ideas</h4>
+    <div class="quick-query-list">
+      <button class="quick-query" type="button" onclick="setExampleQuery('SELECT * FROM Member LIMIT 5;')">Members
+        Preview</button>
+      <button class="quick-query" type="button" onclick="setExampleQuery('SELECT * FROM Trainer LIMIT 5;')">Trainer
+        Preview</button>
+      <button class="quick-query" type="button"
+        onclick="setExampleQuery('SELECT name, membership_type FROM Member LIMIT 5;')">Membership Types</button>
+      <button class="quick-query" type="button"
+        onclick="setExampleQuery('SELECT m.name, COUNT(a.attendance_id) AS total_days FROM Attendance a JOIN Member m ON a.member_id = m.member_id GROUP BY m.name ORDER BY total_days DESC LIMIT 5;')">Attendance
+        Ranking</button>
+    </div>
+  </div>
+
+  <form method="POST">
+    <label for="sqlbox"><strong>Enter SQL Query</strong></label>
+    <textarea id="sqlbox" name="query" class="form-control" rows="6">{{ query }}</textarea>
+    <button class="btn btn-primary mt-3">Run Query</button>
+  </form>
+
+  {% if error %}
+  <div class="alert alert-danger mb-0">{{ error }}</div>
+  {% endif %}
+
+  {% if result %}
+  {% if result is string %}
+  <div class="alert alert-success mb-0">{{ result }}</div>
+  {% else %}
+  <section class="result-shell" style="max-width:100%; overflow:hidden;">
+    <h4>Query Result</h4>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            {% for key in result[0].keys() %}
+            <th>{{ key }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in result %}
+          <tr>
+            {% for value in row.values() %}
+            <td>{{ value }}</td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+  {% endif %}
+  {% endif %}
+</section>
+
+<script>
+  const editor = CodeMirror.fromTextArea(document.getElementById("sqlbox"), {
+    lineNumbers: true,
+    mode: "text/x-sql",
+    theme: "dracula",
+    matchBrackets: true,
+    autoCloseBrackets: true,
+    viewportMargin: Infinity,
+    autoRefresh: true,
+    lineWrapping: true
+  });
+
+  editor.setSize(null, "auto");
+
+  editor.on("change", function () {
+    const wrapper = editor.getWrapperElement();
+    wrapper.style.height = "auto";
+    wrapper.style.height = (editor.getScrollInfo().height + 8) + "px";
+  });
+
+  function setExampleQuery(queryText) {
+    editor.setValue(queryText);
+    editor.focus();
+  }
+</script>
+{% endblock %}

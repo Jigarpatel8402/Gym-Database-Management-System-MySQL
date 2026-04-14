@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+{% block content %}
+<section class="login-shell">
+  <div class="login-copy">
+    <span class="hero-badge">GymTracker</span>
+    <h1 class="page-heading">Gym Management System</h1>
+    <p class="section-subtitle">
+      Manage members, trainers, workouts, attendance, and payments — all from one place.
+      Built to keep your gym running smoothly and efficiently.
+    </p>
+
+    <div class="login-highlights">
+      <div>
+        <strong>Member & Trainer Management</strong>
+        <p class="section-subtitle mb-0">Add, update, and track all gym members and trainers with full profile details.</p>
+      </div>
+      <div>
+        <strong>Attendance & Progress Tracking</strong>
+        <p class="section-subtitle mb-0">Monitor daily check-ins, weight progress, BMI, and fitness goals over time.</p>
+      </div>
+      <div>
+        <strong>Payments & Reports</strong>
+        <p class="section-subtitle mb-0">Handle membership payments, view revenue reports, and run custom SQL queries.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="login-card">
+    <h3>Login</h3>
+    <p class="section-subtitle">Use your credentials to enter the Gym Tracker dashboard.</p>
+
+    <form method="POST" class="login-form">
+      {% if request.args.get('msg') %}
+      <div class="alert alert-warning mt-1 mb-3">{{ request.args.get('msg') }}</div>
+      {% endif %}
+      <div class="mb-3">
+        <label for="username">Username</label>
+        <input id="username" class="form-control" name="username" placeholder="Enter username" required>
+      </div>
+      <div class="mb-3">
+        <label for="password">Password</label>
+        <input id="password" class="form-control" name="password" type="password" placeholder="Enter password" required>
+      </div>
+      <button class="btn btn-primary w-100">Login</button>
+      {% if error %}
+      <div class="alert alert-danger mt-3 mb-0">{{ error }}</div>
+      {% endif %}
+    </form>
+
+    <div class="demo-credentials">
+      Demo credentials: <strong>username</strong> / <strong>password</strong>
+    </div>
+  </div>
+</section>
+{% endblock %}
